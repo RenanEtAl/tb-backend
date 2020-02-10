@@ -1,5 +1,5 @@
 const Category = require('../models/category');
-//const Product = require('../models/product');
+const Product = require('../models/product');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 

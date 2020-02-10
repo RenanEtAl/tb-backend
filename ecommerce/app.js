@@ -8,17 +8,20 @@ const cors = require('cors')
 const app = express()
 require('dotenv').config()
 
+// import routes
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user.js')
 const categoryRoutes = require('./routes/category.js')
 const productRoutes = require('./routes/product');
 
-mongoose.connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useCreateIndex: true
-}).then(() => {
-    console.log('DB connected')
-})
+mongoose
+    .connect(process.env.DATABASE, {
+        useNewUrlParser: true,
+        useCreateIndex: true
+    })
+    .then(() =>
+        console.log('DB connected')
+    )
 
 // mongoose.connection.on('error', err => {
 //     console.log(`DB connection error: ${err.message}`)

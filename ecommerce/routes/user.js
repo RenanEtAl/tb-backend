@@ -5,11 +5,11 @@ const { userById, read, update, purchaseHistory } = require('../controllers/user
 
 const { requireSignin, isAdmin, isAuth } = require('../controllers/auth')
 
-router.post('/secret/:userId', requireSignin, isAuth, isAdmin, (req,res) =>{
-    res.json({
-        user: req.profile
-    })
-})
+// router.post('/secret/:userId', requireSignin, isAuth, isAdmin, (req,res) =>{
+//     res.json({
+//         user: req.profile
+//     })
+// })
 
 router.get('/user/:userId', requireSignin, isAuth, read);
 router.put('/user/:userId', requireSignin, isAuth, update);
