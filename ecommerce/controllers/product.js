@@ -245,10 +245,11 @@ exports.listSearch = (req, res) => {
     const query = {};
     // assign search value to query.name
     if (req.query.search) {
+        // i - is for case insensitivity
         query.name = { $regex: req.query.search, $options: 'i' };
         // assigne category value to query.category
         if (req.query.category && req.query.category != 'All') {
-            query.category = req.query.category;
+            query.category = req.query.category; // add category query to this query
         }
         // find the product based on query object with 2 properties
         // search and category
@@ -259,7 +260,7 @@ exports.listSearch = (req, res) => {
                 });
             }
             res.json(products);
-        }).select('-photo');
+        }).select('-photo'); // dont select the photo
     }
 };
 
