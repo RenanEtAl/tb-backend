@@ -264,16 +264,19 @@ exports.listSearch = (req, res) => {
     }
 };
 
+// decreasing product stock quantity
 exports.decreaseQuantity = (req, res, next) => {
+    // bulk options
+    // map through each product/item
     let bulkOps = req.body.order.products.map(item => {
         return {
-            updateOne: {
-                filter: { _id: item._id },
-                update: { $inc: { quantity: -item.count, sold: +item.count } }
+            updateOne: { 
+                filter: { _id: item._id }, // filter based on id
+                update: { $inc: { quantity: -item.count, sold: +item.count } } // update the quantity, decrement quantity and add sold item
             }
         };
     });
-
+    // bulkWrite - mongoose function
     Product.bulkWrite(bulkOps, {}, (error, products) => {
         if (error) {
             return res.status(400).json({

@@ -84,7 +84,36 @@ exports.update = (req, res) => {
     });
 };
 
-
+exports.addOrderToUserHistory = (req, res, next) => {
+    let history = [];
+    // get products from the order object
+    // forEach - to look for each product and push _id, name... etc
+    req.body.order.products.forEach(item => {
+        history.push({
+            _id: item._id, // "item." part of product
+            name: item.name,
+            description: item.description,
+            category: item.category,
+            quantity: item.count,
+            transaction_id: req.body.order.transaction_id, // part of order
+            amount: req.body.order.amount // part of order
+        });
+    });
+    // add to the user purchase history
+    User.findOneAndUpdate(
+        { _id: req.profile._id },
+        { $push: { history: history } },
+        { new: true }, // retrieve user's updated info
+        // send back response using callback
+        (error, data) => {
+            if (error) {
+                return res.status(400).json({
+                    error: 'Could not update user purchase history'
+                });
+            }
+            next();
+        });
+};
 
 exports.purchaseHistory = (req, res) => {
     Order.find({ user: req.profile._id })
