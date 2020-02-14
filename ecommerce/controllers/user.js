@@ -1,6 +1,5 @@
 const User = require('../models/user')
-const jwt = require('jsonwebtoken') // generate signed token
-const expressJwt = require('express-jwt') // authorization check
+const { Order } = require('../models/order');
 
 const { errorHandler } = require('../helpers/dbErrorHandler')
 
@@ -115,11 +114,13 @@ exports.addOrderToUserHistory = (req, res, next) => {
         });
 };
 
+// user purchaase history
 exports.purchaseHistory = (req, res) => {
+    // find the order based on User
     Order.find({ user: req.profile._id })
-        .populate('user', '_id name')
+        .populate('user', '_id name') 
         .sort('-created')
-        .exec((err, orders) => {
+        .exec((err, orders) => { 
             if (err) {
                 return res.status(400).json({
                     error: errorHandler(err)
