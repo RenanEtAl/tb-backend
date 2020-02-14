@@ -8,16 +8,17 @@ const {
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
 
-
+// get single product
 router.get("/product/:productId", read)
 
 router.post("/product/create/:userId", requireSignin, isAuth, isAdmin, create);
 
+// update product info
 router.put("product/:productId/:userId", requireSignin, isAuth, isAdmin, update)
-
+// delete prod
 router.delete("product/:productId/:userId", requireSignin, isAuth, isAdmin, remove)
 
-
+// get all products
 router.get("/products", list);
 router.get("/products/search", listSearch);
 router.get("/products/related/:productId", listRelated);
