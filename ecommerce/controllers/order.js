@@ -106,7 +106,7 @@ exports.create = (req, res) => {
             from: 'noreply@ecommerce.com',
             subject: `You order is in process`,
             html: `
-            <h1>Hey ${req.profile.name}, Thank you for shopping with us.</h1>
+            <h1>Hey ${req.profile.name}, Thank you for shopping with Thunderbolt MiniMart.</h1>
             <h2>Total products: ${order.products.length}</h2>
             <h2>Transaction ID: ${order.transaction_id}</h2>
             <h2>Order status: ${order.status}</h2>
@@ -122,7 +122,7 @@ exports.create = (req, res) => {
                 })
                 .join('--------------------')}
             <h2>Total order cost: ${order.amount}<h2>
-            <p>Thank your for shopping with us.</p>
+            <p>Thank your for shopping with Thunderbolt Minimart.</p>
         `
         };
         sgMail
